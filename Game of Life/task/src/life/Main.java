@@ -1,6 +1,5 @@
 package life;
 
-import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -10,27 +9,16 @@ public class Main {
         String[] lineArr = line.split("\\s+");
         int n = Integer.parseInt(lineArr[0]);
         int s = Integer.parseInt(lineArr[1]);
+        int m = Integer.parseInt(lineArr[2]);
 
-        char[][] universe = generateUniverse(n, s);
+        Universe universe = new Universe();
+        Generation generation = new Generation(universe, n, s, m);
+        universe.setCurrentState(generation.generationZero());
 
-        showUniverseState(universe);
-    }
-
-    private static char[][] generateUniverse(int n, int s){
-        Random random = new Random(s);
-        char[][] universe = new char[n][n];
-        for (int i = 0; i < n; i++) {
-            for(int j = 0; j < n; j++){
-                boolean isAlive = random.nextBoolean();
-                universe[i][j]= isAlive ? 'O' : ' ';
-            }
+        for (int i = 0; i < m; i++) {
+            generation.nextGeneration();
         }
-        return universe;
-    }
 
-    private static void showUniverseState(char[][] universe){
-        for (char[] row : universe){
-            System.out.println(row);
-        }
+        universe.showCurrentState();
     }
 }

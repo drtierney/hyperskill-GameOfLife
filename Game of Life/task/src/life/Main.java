@@ -8,17 +8,28 @@ public class Main {
         String line = scanner.nextLine();
         String[] lineArr = line.split("\\s+");
         int n = Integer.parseInt(lineArr[0]);
-        int s = Integer.parseInt(lineArr[1]);
-        int m = Integer.parseInt(lineArr[2]);
 
         Universe universe = new Universe();
-        Generation generation = new Generation(universe, n, s, m);
+        Generation generation = new Generation(universe, n);
         universe.setCurrentState(generation.generationZero());
 
-        for (int i = 0; i < m; i++) {
-            generation.nextGeneration();
-        }
+        int g = 1;
+        int evolutions = 10;
 
-        universe.showCurrentState();
+        while (g < evolutions){
+            System.out.printf("Generation #%d\n", g++);
+            System.out.printf("Alive: %d\n", generation.getAliveCount(universe.getCurrentState()));
+
+            universe.showCurrentState();
+            generation.nextGeneration();
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                System.out.println(e);
+            }
+
+            Controller.clearScreen();
+        }
     }
 }

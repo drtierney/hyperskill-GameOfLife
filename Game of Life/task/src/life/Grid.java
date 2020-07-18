@@ -34,7 +34,7 @@ public class Grid extends JPanel {
         for (int i = 10; i <= size * 10; i += 10) {
             g.drawLine(10, i, size * 10 + 10, i);
         }
-        g.setColor(Color.darkGray);
+        g.setColor(Color.BLACK);
 
         // Fill alive cells
         for (Point cell : cells) {

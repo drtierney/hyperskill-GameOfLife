@@ -1,27 +1,28 @@
 package life;
 
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        String line = scanner.nextLine();
-        String[] lineArr = line.split("\\s+");
-        int n = Integer.parseInt(lineArr[0]);
+
+        GameOfLife gameOfLife = new GameOfLife();
 
         Universe universe = new Universe();
-        Generation generation = new Generation(universe, n);
+        Generation generation = new Generation(universe);
         universe.setCurrentState(generation.generationZero());
 
-        int g = 1;
-        int evolutions = 10;
-
-        while (g < evolutions){
-            System.out.printf("Generation #%d\n", g++);
-            System.out.printf("Alive: %d\n", generation.getAliveCount(universe.getCurrentState()));
-
-            universe.showCurrentState();
+        while (true){
             generation.nextGeneration();
+
+            char [][] currentState = universe.getCurrentState();
+
+            for (int i = 0; i < currentState.length; i++) {
+                for (int j = 0; j < currentState.length; j++) {
+                    if (currentState[i][j] == 'O') {
+                        gameOfLife.grid.fillCell(i, j);
+                    } else {
+                        gameOfLife.grid.removeCell(i, j);
+                    }
+                }
+            }
 
             try {
                 Thread.sleep(1000);
@@ -29,7 +30,13 @@ public class Main {
                 System.out.println(e);
             }
 
-            Controller.clearScreen();
+            String gen = "Generation #" + gameOfLife.getCurrentGeneration();
+            String alive = "Alive: " + generation.getAliveCount(currentState);
+
+            gameOfLife.GenerationLabel.setText(gen);
+            gameOfLife.AliveLabel.setText(alive);
+
+            gameOfLife.nextGeneration();
         }
     }
 }

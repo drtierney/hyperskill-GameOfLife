@@ -2,7 +2,7 @@
 Practice using Swing library for creating GUI and get confident working with Random class and multithreading by recreating Conway's Game of Life.  
 https://hyperskill.org/projects/54
 
-<img src="https://github.com/drtierney/hyperskill-GameOfLife/blob/master/GameOfLife.gif" width="800" height="500" />
+<img src="https://github.com/drtierney/hyperskill-GameOfLife/blob/main/GameOfLife.gif" width="800" height="500" />
 
 ## Syntax
 
